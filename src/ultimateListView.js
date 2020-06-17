@@ -8,7 +8,8 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  View
+  View,
+  Platform
 } from 'react-native'
 import RefreshableScrollView from './refreshableScrollView'
 
@@ -390,7 +391,7 @@ export default class UltimateListView extends Component {
   }
 
   renderScrollComponent = (props) => {
-    if (this.props.refreshable && this.props.refreshableMode === 'advanced') {
+    if (this.props.refreshable && this.props.refreshableMode === 'advanced' && Platform.OS !== 'web') {
       return (
         <RefreshableScrollView
           {...props}
