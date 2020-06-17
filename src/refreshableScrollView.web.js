@@ -1,5 +1,5 @@
 import React from 'react'
-import { ActivityIndicator, Animated, AsyncStorage, Easing, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { ActivityIndicator, Animated, Easing, ScrollView, StyleSheet, Text, View } from 'react-native'
 import dateFormat from './util'
 
 const DATE_KEY = 'ultimateRefreshDate'
@@ -51,17 +51,17 @@ export default class RefreshableScrollView extends ScrollView {
 
     async componentDidMount() {
         try {
-            let result = await AsyncStorage.getItem(DATE_KEY)
-            if (result) {
-                result = parseInt(result, 10)
-                this.setState({
-                    date: dateFormat(new Date(result), this.props.dateFormat)
-                })
-            } else {
+            // let result = await AsyncStorage.getItem(DATE_KEY)
+            // if (result) {
+            //     result = parseInt(result, 10)
+            //     this.setState({
+            //         date: dateFormat(new Date(result), this.props.dateFormat)
+            //     })
+            // } else {
                 this.setState({
                     date: dateFormat(new Date(), this.props.dateFormat)
                 })
-            }
+            // }
         } catch (err) {
             console.log(err)
         }
@@ -161,7 +161,6 @@ export default class RefreshableScrollView extends ScrollView {
                 refreshTitle: this.props.refreshableTitlePull,
                 date: dateFormat(now, this.props.dateFormat)
             })
-            AsyncStorage.setItem(DATE_KEY, now.toString())
             Animated.timing(this.state.arrowAngle, {
                 toValue: 0,
                 duration: 50,
